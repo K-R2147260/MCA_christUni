@@ -1,4 +1,4 @@
-# MCA_christUni
+# MCA @ Christ University
 
 3rd Trimester
 <ul>
