@@ -1,0 +1,71 @@
+#include <stdio.h>
+int choice,stax[100],value,i,ch; char ans;
+void push(void);
+void pop(void);
+void display(void);
+
+struct Node{
+  int data;
+  struct node * next;
+}*top = NULL;
+
+
+int main(void) {
+  do{
+  printf("\nEnter choice");
+  printf("\n1. Push an element \n2. Pop an Element \n3. View Stack");
+  scanf("%d",&choice);
+  
+  switch(choice){
+    case 1:push(); break;
+    case 2:pop(); break;
+    case 3:display(); break;
+    default:printf("\nInvalid choice");
+  }
+    printf("\nDo you want to continue? (y/n)");
+    while ((ch = getchar()) != '\n' && ch != EOF);
+    scanf("%c",&ans);  
+  } while(ans=='y'||ans=='Y');
+  return 0 ;
+}
+
+
+void push(){
+  printf("\nEnter value to be added");
+  scanf("%d",&value);
+  struct Node *newNode;
+  newNode = (struct Node*)malloc(sizeof(struct Node));
+  newNode->data = value; // get value for the node
+  if(top == NULL)
+    newNode->next = NULL;
+  else
+    newNode->next = top; // Make the node as TOP
+  top = newNode;
+  printf("Node is Inserted\n\n");
+}
+
+void pop(){
+  if(top == NULL)
+    printf("\nEMPTY STACK\n");
+  else{
+    struct Node *temp = top;
+  printf("\nPopped Element : %d", temp->data);
+  printf("\n");
+  top = temp->next; // After popping, make the next node as TOP
+  free(temp);
+  }
+}
+
+void display(){
+  if(top == NULL)
+    printf("\nEMPTY STACK\n");
+  else{
+    printf("The stack is \n");
+    struct Node *temp = top;
+  while(temp->next != NULL){
+    printf("%d--->",temp->data);
+    temp = temp -> next;
+  }
+  printf("%d--->NULL\n\n",temp->data);
+  }
+}
