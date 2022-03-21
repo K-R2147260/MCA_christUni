@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<conio.h>
+#include<stdlib.h>
 
 struct Node
 {
@@ -14,6 +15,39 @@ void DeQueue();
 void display();
 void Front();
 void QueueSize();
+void special(struct Node** head_ref){
+    struct Node *temp = *head_ref, *prev;
+    
+    while (temp != NULL && temp->data%10==0)
+    {
+        *head_ref = temp->next;
+        free(temp); 
+        temp = *head_ref; 
+    }
+    
+    while (temp != NULL)
+    {
+       
+        while (temp != NULL && temp->data%10==0)
+        {
+            prev = temp;
+            temp = temp->next;
+        }
+ 
+        // If key was not present in linked list
+        if (temp == NULL)
+            return;
+ 
+        // Unlink the node from linked list
+        prev->next = temp->next;
+ 
+        free(temp); // Free memory
+ 
+        // Update Temp for next iteration of outer loop
+        temp = prev->next;
+    }
+    
+}
 int main()
 {
     int choice, value;
@@ -26,10 +60,12 @@ int main()
         printf("3. Display Queue\n");
         printf("4. Front of the Queue\n");
         printf("5. Size of Queue\n");
-        printf("6. Exit\n");
+        printf("6. Delete multiples of 10\n");
+        printf("7. Exit\n");
 
         printf("Enter your choice: ");
         scanf("%d",&choice);
+        struct Node* head = NULL;
 
         switch(choice)
         {
@@ -52,6 +88,9 @@ int main()
                 QueueSize();
                 break;
          case 6:
+                special(&head);
+                break;
+         case 7:
                 exit(0);
          default:
                 printf("\nInvalid Selection!!..Select valid number please!!\n");
@@ -130,3 +169,5 @@ void QueueSize()
         printf("\n Size of the queue is %d \n",count+1);
     }
 }
+
+
